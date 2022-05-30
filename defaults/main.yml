@@ -1,4 +1,19 @@
 ---
-ROLENAME_task_prefix: "=== ROLENAME ==="
+hbase_task_prefix: "=== HBASE ==="
 
+# Common settings
+hbase_user: "hadoop"
+hbase_group: "hadoop"
+hbase_user_shell: "hadoop"
+hbase_version: "2.4.9"
+# variant can be either "bin" or "client-bin"
+hbase_variant: "bin"
+hbase_download_url_base: "https://archive.apache.org/dist/hbase"
+hbase_download_url_file: "{{ hbase_download_url_base }}/{{ hbase_version }}/hbase-{{ hbase_version }}-{{ hbase_variant }}.tar.gz"
+hbase_download_url_checksum: "{{ hbase_download_url_file }}.sha512"
+hbase_download_checksum_algo: "sha512"
+
+# Path settings
+hbase_path_base: "/opt"
+hbase_path_tarball: "{{ hbase_path_base }}/hbase-{{ hbase_version }}.tar.gz"
 ...

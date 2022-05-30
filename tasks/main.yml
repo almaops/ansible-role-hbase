@@ -1,4 +1,19 @@
 ---
-- name: "{{ ROLENAME_task_prefix }}"
+- name: "{{ hbase_task_prefix }} Create hbase group"
+  ansible.builtin.group:
+    name: "{{ hadoop_group }}"
+    state: present
 
+- name: "{{ hbase_task_prefix }} Create hbase user"
+  ansible.builtin.user:
+    name: "{{ hbase_user }}"
+    shell: "{{ hbase_user_shell }}"
+    group: "{{ hbase_group }}"
+    state: present
+
+- name: "{{ hbase_task_prefix }} Download tarball"
+  ansible.builtin.get_url:
+    url: "{{ hbase_download_url_file }}"
+    dest: "{{ hbase_path_tarball }}"
+    checksum: "{{ hbase_download_checksum_algo }}:{{ hbase_download_url_checksum }}"
 ...
