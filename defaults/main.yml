@@ -44,6 +44,21 @@ hbase_template_hbase_env_sh: "hbase-env.sh.j2"
 hbase_template_jmxremote_access: "jmxremote.access.j2"
 hbase_template_jmxremote_passwd: "jmxremote.passwd.j2"
 hbase_template_jmx_prometheus_javaagent: "jmx_prometheus_javaagent.yaml.j2"
+hbase_template_master_service: "hbase-master.service.j2"
+hbase_template_regionserver_service: "hbase-regionserver.service.j2"
+
+# SystemD units
+hbase_systemd_master_name: "hbase-master"
+hbase_systemd_master_enabled: true
+hbase_systemd_master_masked: false
+hbase_systemd_master_state: "started"
+hbase_systemd_master_daemon_reload: true
+
+hbase_systemd_regionserver_name: "hbase-regionserver"
+hbase_systemd_regionserver_enabled: true
+hbase_systemd_regionserver_masked: false
+hbase_systemd_regionserver_state: "started"
+hbase_systemd_regionserver_daemon_reload: true
 
 # Path settings
 hbase_path_base: "/opt"
@@ -55,6 +70,9 @@ hbase_path_java_home: "{{ undef(hint='You must define $JAVA_HOME path') }}"
 hbase_path_hadoop_install: "/opt/hadoop"
 hbase_path_hadoop_config: "{{ hbase_path_hadoop_install }}/etc/hadoop"
 hbase_path_data: "/srv/hbase"
+
+hadoop_path_systemd_master: "/etc/systemd/system/{{ hbase_systemd_master_name }}.service"
+hadoop_path_systemd_regionserver: "/etc/systemd/system/{{ hbase_systemd_regionserver_name }}.service"
 
 
 # Configuration settings

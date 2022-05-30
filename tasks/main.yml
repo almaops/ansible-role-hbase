@@ -129,4 +129,36 @@
   loop:
     - libhadoop.so
     - libhdfs.so
+
+- name: "{{ hbase_task_prefix }} Install HBase Master service unit"
+  template:
+    src: "{{ hbase_template_master_service }}"
+    dest: "{{ hadoop_path_systemd_master }}"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Start HBase Master service"
+  systemd:
+    name: "{{ hbase_systemd_master_name }}"
+    enabled: "{{ hbase_systemd_master_enabled | bool }}"
+    masked: "{{ hbase_systemd_master_masked | bool }}"
+    daemon_reload: "{{ hbase_systemd_master_daemon_reload | bool }}"
+    state: "{{ hbase_systemd_master_state }}"
+
+- name: "{{ hbase_task_prefix }} Install HBase Region Server service unit"
+  template:
+    src: "{{ hbase_template_regionserver_service }}"
+    dest: "{{ hadoop_path_systemd_regionserver }}"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Start HBase Resion Server service"
+  systemd:
+    name: "{{ hbase_systemd_regionserver_name }}"
+    enabled: "{{ hbase_systemd_regionserver_enabled | bool }}"
+    masked: "{{ hbase_systemd_regionserver_masked | bool }}"
+    daemon_reload: "{{ hbase_systemd_regionserver_daemon_reload | bool }}"
+    state: "{{ hbase_systemd_regionserver_state }}"
 ...
