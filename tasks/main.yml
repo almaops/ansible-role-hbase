@@ -1,7 +1,7 @@
 ---
 - name: "{{ hbase_task_prefix }} Create hbase group"
   ansible.builtin.group:
-    name: "{{ hadoop_group }}"
+    name: "{{ hbase_group }}"
     state: present
 
 - name: "{{ hbase_task_prefix }} Create hbase user"
@@ -60,4 +60,73 @@
     owner: root
     group: root
     mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Template hbase-env.sh"
+  template:
+    src: "{{ hbase_template_hbase_env_sh }}"
+    dest: "{{ hbase_path_config }}/hbase-env.sh"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Link hadoop configs"
+  file:
+    state: link
+    src: "{{ hbase_path_hadoop_config }}/{{ item }}"
+    dest: "{{ hbase_path_config }}/{{ item }}"
+  loop:
+    - core-site.xml
+    - hdfs-site.xml
+    - yarn-site.xml
+    - mapred-site.xml
+    - hadoop-metrics2.properties
+
+- name: "{{ hbase_task_prefix }} Template jmxremote.access"
+  template:
+    src: "{{ hbase_template_jmxremote_access }}"
+    dest: "{{ hbase_path_config }}/jmxremote.access"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Template jmxremote.passwd"
+  template:
+    src: "{{ hbase_template_jmxremote_passwd }}"
+    dest: "{{ hbase_path_config }}/jmxremote.passwd"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Template jmx_prometheus_javaagent.yaml"
+  template:
+    src: "{{ hbase_template_jmx_prometheus_javaagent }}"
+    dest: "{{ hbase_path_config }}/jmx_prometheus_javaagent.yaml"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: "{{ hbase_task_prefix }} Create data directory"
+  ansible.builtin.file:
+    path: "{{ hbase_path_data }}"
+    state: directory
+    owner: "{{ hbase_user }}"
+    group: "{{ hbase_group }}"
+    mode: '0755'
+
+- name: "{{ hbase_task_prefix }} Create native libs dir"
+  ansible.builtin.file:
+    path: "{{ hbase_path_install }}/lib/native"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "{{ hbase_task_prefix }} Link hadoop libs"
+  ansible.builtin.file:
+    state: link
+    src: "{{ hbase_path_hadoop_install }}/lib/native/{{ item }}"
+    dest: "{{ hbase_path_install }}/lib/native/{{ item }}"
+  loop:
+    - libhadoop.so
+    - libhdfs.so
 ...
