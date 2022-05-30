@@ -41,11 +41,17 @@
     remote_src: true
     force: false
 
+- name: "{{ hbase_task_prefix }} Download checksum"
+  ansible.builtin.uri:
+    url: "{{ hbase_jmx_exporter_url_checksum }}"
+    return_content: true
+  register: hbase_jmx_exporter_checksum
+
 - name: "{{ hbase_task_prefix }} Download JMX exporter"
   ansible.builtin.get_url:
     url: "{{ hbase_jmx_exporter_url_file }}"
     dest: "{{ hbase_path_install }}/lib/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar"
-    checksum: "{{ hbase_jmx_exporter_checksum_algo }}:{{ hbase_jmx_exporter_url_checksum }}"
+    checksum: "{{ hbase_jmx_exporter_checksum_algo }}:{{ hbase_jmx_exporter_checksum.content }}"
 
 - name: "{{ hbase_task_prefix }} Template hbase-site.xml"
   template:
