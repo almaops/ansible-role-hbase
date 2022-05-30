@@ -11,9 +11,33 @@
     group: "{{ hbase_group }}"
     state: present
 
+- name: "{{ hbase_task_prefix }} Download checksum"
+  ansible.builtin.uri:
+    url: "{{ hbase_download_url_checksum }}"
+    return_content: true
+  register: hbase_download_checksum_raw
+
+- name: "{{ hbase_task_prefix }} Extract checksum"
+  ansible.builtin.set_fact:
+    hbase_download_checksum: "{{ hbase_download_checksum_raw.content.split(': ')[1] | regex_replace('\n','') | regex_replace(' ','') | lower }}"
+
 - name: "{{ hbase_task_prefix }} Download tarball"
   ansible.builtin.get_url:
     url: "{{ hbase_download_url_file }}"
     dest: "{{ hbase_path_tarball }}"
-    checksum: "{{ hbase_download_checksum_algo }}:{{ hbase_download_url_checksum }}"
+    checksum: "{{ hbase_download_checksum_algo }}:{{ hbase_download_checksum }}"
+
+- name: "{{ hbase_task_prefix }} Unpack tarball"
+  ansible.builtin.unarchive:
+    src: "{{ hbase_path_tarball }}"
+    dest: "{{ hbase_path_base }}"
+    remote_src: true
+    creates: "{{ hbase_path_unpacked }}"
+
+- name: "{{ hbase_task_prefix }} Copy binaries"
+  ansible.builtin.copy:
+    src: "{{ hbase_path_unpacked }}"
+    dest: "{{ hbase_path_install }}"
+    remote_src: true
+    force: false
 ...
