@@ -4,7 +4,7 @@ hbase_task_prefix: "=== HBASE ==="
 # Common settings
 hbase_user: "hadoop"
 hbase_group: "hadoop"
-hbase_user_shell: "hadoop"
+hbase_user_shell: "/usr/sbin/nologin"
 hbase_version: "2.4.9"
 # variant can be either "bin" or "client-bin"
 hbase_variant: "bin"
@@ -12,6 +12,12 @@ hbase_download_url_base: "https://archive.apache.org/dist/hbase"
 hbase_download_url_file: "{{ hbase_download_url_base }}/{{ hbase_version }}/hbase-{{ hbase_version }}-{{ hbase_variant }}.tar.gz"
 hbase_download_url_checksum: "{{ hbase_download_url_file }}.sha512"
 hbase_download_checksum_algo: "sha512"
+# https://github.com/prometheus/jmx_exporter/releases/
+hbase_jmx_exporter_version: "0.17.0"
+hbase_jmx_exporter_url_file: "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/{{ hbase_jmx_exporter_version }}/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar"
+# Either sha1 or md5
+hbase_jmx_exporter_checksum_algo: "sha1"
+hbase_jmx_exporter_url_checksum: "{{ hbase_jmx_exporter_url_file }}.{{ hbase_jmx_exporter_checksum_algo }}"
 
 # Hosts and groups
 hbase_hosts_masters: "{{ undef(hint='You must set the group name of hbase masters') }}"
@@ -25,7 +31,15 @@ hbase_bind_addr_regionserver_info: "0.0.0.0"
 hbase_bind_port_regionserver_info: "60030"
 hbase_bind_port_regionserver_thrift: "9090"
 hbase_bind_port_thrift_info: "9095"
-hbase_bind_port_
+
+hbase_bind_port_jmx_master: "10101"
+hbase_bind_port_jmx_regionserver: "10102"
+hbase_bind_port_jmx_thrift: "10103"
+hbase_bind_port_prometheus_master: "9120"
+hbase_bind_port_prometheus_regionserver: "9121"
+
+# Templates
+hbase_template_hbase_site_xml: "hbase-site.xml.j2"
 
 # Path settings
 hbase_path_base: "/opt"
@@ -33,6 +47,7 @@ hbase_path_tarball: "{{ hbase_path_base }}/hbase-{{ hbase_version }}.tar.gz"
 hbase_path_unpacked: "{{ hbase_path_base }}/hbase-{{ hbase_version }}/"
 hbase_path_install: "{{ hbase_path_base }}/hbase"
 hbase_path_config: "{{ hbase_path_install }}/conf"
+hbase_path_java_home: "{{ undef(hint='You must define $JAVA_HOME path') }}"
 hbase_path_data: "/srv/hbase"
 
 
@@ -44,4 +59,7 @@ hbase_conf_hbase_zookeeper_quorum: "{{ undef(hint='You must set zookeeper ip add
 hbase_conf_hbase_zookeeper_property_client_port: "2181"
 hbase_conf_hbase_zookeeper_peerport: "2888"
 hbase_conf_hbase_zookeeper_leaderport: "3888"
+
+# Environment variables
+hbase_env_hbase_heapsize: "1000"
 ...

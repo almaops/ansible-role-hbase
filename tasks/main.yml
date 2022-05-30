@@ -40,4 +40,18 @@
     dest: "{{ hbase_path_install }}"
     remote_src: true
     force: false
+
+- name: "{{ hbase_task_prefix }} Download JMX exporter"
+  ansible.builtin.get_url:
+    url: "{{ hbase_jmx_exporter_url_file }}"
+    dest: "{{ hbase_path_install }}/lib/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar"
+    checksum: "{{ hbase_jmx_exporter_checksum_algo }}:{{ hbase_jmx_exporter_url_checksum }}"
+
+- name: "{{ hbase_task_prefix }} Template hbase-site.xml"
+  template:
+    src: "{{ hbase_template_hbase_site_xml }}"
+    dest: "{{ hbase_path_config }}/hbase-site.xml"
+    owner: root
+    group: root
+    mode: '0644'
 ...
