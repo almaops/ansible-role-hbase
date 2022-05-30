@@ -95,7 +95,7 @@
     dest: "{{ hbase_path_config }}/jmxremote.passwd"
     owner: root
     group: root
-    mode: '0644'
+    mode: '0640'
 
 - name: "{{ hbase_task_prefix }} Template jmx_prometheus_javaagent.yaml"
   template:
