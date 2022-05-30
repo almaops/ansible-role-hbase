@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+    <name>hbase.rootdir</name>
+    <value>{{ hbase_conf_hbase_rootdir }}</value>
+</property>
+<property>
+    <name>hbase.cluster.distributed</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.tmp.dir</name>
+    <value>{{ hbase_conf_hbase_tmp_dir }}</value>
+</property>
+<property>
+    <name>hbase.zookeeper.quorum</name>
+    <value>{{ hbase_conf_hbase_zookeeper_quorum }}</value>
+</property>
+<property>
+    <name>hbase.online.schema.update.enable</name>
+    <value>true</value>
+</property>
+<property>
+    <!-- @see https://issues.apache.org/jira/browse/HBASE-5074 -->
+    <name>hbase.regionserver.checksum.verify</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.snapshot.enabled</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.master.port</name>
+    <value>{{ hbase_bind_port_master }}</value>
+</property>
+<property>
+    <name>hbase.master.info.port</name>
+    <value>{{ hbase_bind_port_master_info }}</value>
+</property>
+<property>
+    <name>hbase.regionserver.port</name>
+    <value>{{ hbase_bind_port_regionserver }}</value>
+</property>
+<property>
+    <name>hbase.regionserver.info.bindAddress</name>
+    <value>{{ hbase_regionserver_info_bindaddress }}</value>
+</property>
+<property>
+    <name>hbase.regionserver.info.port</name>
+    <value>{{ hbase_bind_port_regionserver_info }}</value>
+</property>
+<property>
+    <name>hbase.regionserver.thrift.port</name>
+    <value>{{ hbase_bind_port_regionserver_thrift }}</value>
+</property>
+<property>
+    <name>hbase.thrift.info.port</name>
+    <value>{{ hbase_bind_port_thrift_info }}</value>
+</property>
+<property>
+    <name>hbase.zookeeper.property.clientPort</name>
+    <value>{{ hbase_conf_hbase_zookeeper_property_client_port }}</value>
+</property>
+<property>
+    <name>hbase.zookeeper.peerport</name>
+    <value>{{ hbase_conf_hbase_zookeeper_peerport }}</value>
+</property>
+<property>
+    <name>hbase.zookeeper.leaderport</name>
+    <value>{{ hbase_conf_hbase_zookeeper_leaderport }}</value>
+</property>
+</configuration>

@@ -13,9 +13,35 @@ hbase_download_url_file: "{{ hbase_download_url_base }}/{{ hbase_version }}/hbas
 hbase_download_url_checksum: "{{ hbase_download_url_file }}.sha512"
 hbase_download_checksum_algo: "sha512"
 
+# Hosts and groups
+hbase_hosts_masters: "{{ undef(hint='You must set the group name of hbase masters') }}"
+hbase_hosts_regionservers: "{{ undef(hint='You must set the group name of hbase resion servers') }}"
+
+# Network settings
+hbase_bind_port_master: "60000"
+hbase_bind_port_master_info: "60010"
+hbase_bind_port_regionserver: "60020"
+hbase_bind_addr_regionserver_info: "0.0.0.0"
+hbase_bind_port_regionserver_info: "60030"
+hbase_bind_port_regionserver_thrift: "9090"
+hbase_bind_port_thrift_info: "9095"
+hbase_bind_port_
+
 # Path settings
 hbase_path_base: "/opt"
 hbase_path_tarball: "{{ hbase_path_base }}/hbase-{{ hbase_version }}.tar.gz"
 hbase_path_unpacked: "{{ hbase_path_base }}/hbase-{{ hbase_version }}/"
 hbase_path_install: "{{ hbase_path_base }}/hbase"
+hbase_path_config: "{{ hbase_path_install }}/conf"
+hbase_path_data: "/srv/hbase"
+
+
+# Configuration settings
+hbase_conf_nameservice_id: "sample"
+hbase_conf_hbase_rootdir: "hdfs://{{ hbase_conf_nameservice_id }}/hbase"
+hbase_conf_hbase_tmp_dir: "{{ hbase_path_data }}"
+hbase_conf_hbase_zookeeper_quorum: "{{ undef(hint='You must set zookeeper ip addresses') }}"
+hbase_conf_hbase_zookeeper_property_client_port: "2181"
+hbase_conf_hbase_zookeeper_peerport: "2888"
+hbase_conf_hbase_zookeeper_leaderport: "3888"
 ...
