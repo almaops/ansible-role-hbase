@@ -16,6 +16,6 @@ hbase_download_checksum_algo: "sha512"
 # Path settings
 hbase_path_base: "/opt"
 hbase_path_tarball: "{{ hbase_path_base }}/hbase-{{ hbase_version }}.tar.gz"
-hbase_path_unpacked: "{{ hbase_path_base }}/hbase-{{ hbase_version }}"
+hbase_path_unpacked: "{{ hbase_path_base }}/hbase-{{ hbase_version }}/"
 hbase_path_install: "{{ hbase_path_base }}/hbase"
 ...
