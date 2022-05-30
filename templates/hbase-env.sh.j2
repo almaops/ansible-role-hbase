@@ -1,0 +1,10 @@
+export JAVA_HOME={{ hbase_path_java_home }}
+export HBASE_HEAPSIZE={{ hbase_env_hbase_heapsize }}
+export HBASE_OPTS="-XX:+UseG1GC"
+HBASE_JMX_BASE="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false"
+HBASE_JMX_BASE="$HBASE_JMX_BASE -Dcom.sun.management.jmxremote.password.file=$HBASE_HOME/conf/jmxremote.passwd"
+export HBASE_JMX_BASE="$HBASE_JMX_BASE -Dcom.sun.management.jmxremote.access.file=$HBASE_HOME/conf/jmxremote.access"
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port={{ hbase_bind_port_jmx_master }} -javaagent:{{ hbase_path_install }}/lib/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar={{ hbase_bind_port_prometheus_master }}:$HBASE_HOME/conf/jmx_prometheus_javaagent.yaml"
+export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port={{ hbase_bind_port_jmx_regionserver }} -javaagent:{{ hbase_path_install }}/lib/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar={{ hbase_bind_port_prometheus_regionserver }}:$HBASE_HOME/conf/jmx_prometheus_javaagent.yaml"
+export HBASE_THRIFT_OPTS="$HBASE_THRIFT_OPTS $HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port={{ hbase_bind_port_jmx_thrift }}"
+export HBASE_MANAGES_ZK=false
