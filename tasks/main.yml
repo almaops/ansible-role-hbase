@@ -111,6 +111,14 @@
     state: directory
     owner: "{{ hbase_user }}"
     group: "{{ hbase_group }}"
+    mode: '0755' 
+
+- name: "{{ hbase_task_prefix }} Create logs directory"
+  ansible.builtin.file:
+    path: "{{ hbase_path_logs }}"
+    state: directory
+    owner: "{{ hbase_user }}"
+    group: "{{ hbase_group }}"
     mode: '0755'
 
 - name: "{{ hbase_task_prefix }} Create native libs dir"
