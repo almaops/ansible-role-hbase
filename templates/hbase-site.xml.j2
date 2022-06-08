@@ -70,4 +70,54 @@
     <name>hbase.zookeeper.leaderport</name>
     <value>{{ hbase_conf_hbase_zookeeper_leaderport }}</value>
 </property>
+{% if hbase_enable_phoenix %}
+<property>
+    <name>phoenix.query.maxGlobalMemoryPercentage</name>
+    <value>15</value>
+</property>
+<property>
+    <name>phoenix.query.threadPoolSize</name>
+    <value>256</value>
+</property>
+<property>
+    <name>phoenix.query.queueSize</name>
+    <value>5000</value>
+</property>
+<property>
+    <name>phoenix.index.failure.unhandled.killserver</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.regionserver.wal.codec</name>
+    <value>org.apache.hadoop.hbase.regionserver.wal.IndexedWALEditCodec</value>
+</property>
+<property>
+    <name>hbase.region.server.rpc.scheduler.factory.class</name>
+    <value>org.apache.hadoop.hbase.ipc.PhoenixRpcSchedulerFactory</value>
+</property>
+<property>
+    <name>hbase.rpc.controllerfactory.class</name>
+    <value>org.apache.hadoop.hbase.ipc.controller.ServerRpcControllerFactory</value>
+</property>
+<property>
+    <name>phoenix.query.timeoutMs</name>
+    <value>3600000</value>
+</property>
+<property>
+    <name>phoenix.query.force.rowkeyorder</name>
+    <value>true</value>
+</property>
+<property>
+    <name>phoenix.stats.guidepost.width</name>
+    <value>104857600</value>
+</property>
+<property>
+    <name>phoenix.trace.frequency</name>
+    <value>always</value>
+</property>
+<property>
+    <name>phoenix.coprocessor.maxServerCacheTimeToLiveMs</name>
+    <value>60000</value>
+</property>
+{% endif %}
 </configuration>

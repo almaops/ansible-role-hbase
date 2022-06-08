@@ -6,6 +6,7 @@ hbase_user: "hadoop"
 hbase_group: "hadoop"
 hbase_user_shell: "/usr/sbin/nologin"
 hbase_version: "2.4.9"
+hbase_enable_phoenix: true
 # variant can be either "bin" or "client-bin"
 hbase_variant: "bin"
 hbase_download_url_base: "https://archive.apache.org/dist/hbase"
