@@ -28,4 +28,12 @@
     dest: "{{ hbase_path_phoenix_install }}"
     remote_src: true
     force: false
+
+- name: "{{ hbase_task_prefix }} Link Phoenix library"
+  ansible.builtin.file:
+    state: link
+    src: "{{ hbase_path_phoenix_install }}/phoenix-server-hbase-{{ hbase_phoenix_version_hbase }}-{{ hbase_phoenix_version }}.jar"
+    dest: "{{ hbase_path_install }}/lib/phoenix-server-hbase-{{ hbase_phoenix_version_hbase }}-{{ hbase_phoenix_version }}.jar"
+
+
 ...
