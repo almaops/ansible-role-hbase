@@ -24,7 +24,7 @@
 
 - name: "{{ hbase_task_prefix }} Copy Phoenix binaries"
   ansible.builtin.copy:
-    src: "{{ hbase_path_phoenix_unpacked }}"
+    src: "{{ hbase_path_phoenix_unpacked }}/"
     dest: "{{ hbase_path_phoenix_install }}"
     remote_src: true
     force: false
