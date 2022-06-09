@@ -6,6 +6,8 @@ hbase_user: "hadoop"
 hbase_group: "hadoop"
 hbase_user_shell: "/usr/sbin/nologin"
 hbase_version: "2.4.9"
+habse_phoenix_version: "5.1.2"
+habse_phoenix_version_hbase: "2.4.0"
 hbase_enable_phoenix: true
 # variant can be either "bin" or "client-bin"
 hbase_variant: "bin"
@@ -13,6 +15,11 @@ hbase_download_url_base: "https://archive.apache.org/dist/hbase"
 hbase_download_url_file: "{{ hbase_download_url_base }}/{{ hbase_version }}/hbase-{{ hbase_version }}-{{ hbase_variant }}.tar.gz"
 hbase_download_url_checksum: "{{ hbase_download_url_file }}.sha512"
 hbase_download_checksum_algo: "sha512"
+hbase_phoenix_url_base: "https://archive.apache.org/dist/phoenix"
+hbase_phoenix_url_file: "{{ hbase_phoenix_url_base }}/phoenix-{{ habse_phoenix_version }}/phoenix-hbase-{{  }}-{{ habse_phoenix_version }}-bin.tar.gz"
+hbase_phoenix_url_checksum: "{{ hbase_phoenix_url_file }}.sha512"
+hbase_phoenix_checksum_algo: "sha512"
+
 # https://github.com/prometheus/jmx_exporter/releases/
 hbase_jmx_exporter_version: "0.17.0"
 hbase_jmx_exporter_url_file: "https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/{{ hbase_jmx_exporter_version }}/jmx_prometheus_javaagent-{{ hbase_jmx_exporter_version }}.jar"
@@ -72,6 +79,9 @@ hbase_path_java_home: "{{ undef(hint='You must define $JAVA_HOME path') }}"
 hbase_path_hadoop_install: "/opt/hadoop"
 hbase_path_hadoop_config: "{{ hbase_path_hadoop_install }}/etc/hadoop"
 hbase_path_data: "/srv/hbase"
+
+hbase_path_phoenix_tarbal: "{{ hbase_path_base }}/phoenix-{{ habse_phoenix_version }}-bin.tar.gz"
+
 
 hadoop_path_systemd_master: "/etc/systemd/system/{{ hbase_systemd_master_name }}.service"
 hadoop_path_systemd_regionserver: "/etc/systemd/system/{{ hbase_systemd_regionserver_name }}.service"

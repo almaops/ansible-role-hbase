@@ -138,6 +138,9 @@
     - libhadoop.so
     - libhdfs.so
 
+- import_tasks: phoenix.yml
+  when: hbase_enable_phoenix
+
 - name: "{{ hbase_task_prefix }} Install HBase Master service unit"
   template:
     src: "{{ hbase_template_master_service }}"

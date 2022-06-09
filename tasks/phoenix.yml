@@ -1,0 +1,19 @@
+---
+- name: "{{ hbase_task_prefix }} Download Phoenix checksum"
+  ansible.builtin.uri:
+    url: "{{ hbase_phoenix_url_checksum }}"
+    return_content: true
+  register: hbase_phoenix_download_checksum_raw
+
+- name: "{{ hbase_task_prefix }} Extract Phoenix checksum"
+  ansible.builtin.set_fact:
+    hbase_phoenix_download_checksum: "{{ hbase_phoenix_download_checksum_raw.content.split(': ')[1] | regex_replace('\n','') | regex_replace(' ','') | lower }}"
+
+- name: "{{ hbase_task_prefix }} Download tarball"
+  ansible.builtin.get_url:
+    url: "{{ hbase_phoenix_url_file }}"
+    dest: "{{ hbase_path_phoenix_tarbal }}"
+    checksum: "{{ hbase_phoenix_checksum_algo }}:{{ hbase_phoenix_download_checksum }}"
+
+
+...
