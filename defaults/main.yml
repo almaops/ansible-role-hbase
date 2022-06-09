@@ -80,7 +80,9 @@ hbase_path_hadoop_install: "/opt/hadoop"
 hbase_path_hadoop_config: "{{ hbase_path_hadoop_install }}/etc/hadoop"
 hbase_path_data: "/srv/hbase"
 
-hbase_path_phoenix_tarbal: "{{ hbase_path_base }}/phoenix-{{ hbase_phoenix_version }}-bin.tar.gz"
+hbase_path_phoenix_tarball: "{{ hbase_path_base }}/phoenix-hbase-{{ hbase_phoenix_version_hbase }}-{{ hbase_phoenix_version }}-bin.tar.gz"
+hbase_path_phoenix_unpacked: "{{ hbase_path_base }}/phoenix-hbase-{{ hbase_phoenix_version_hbase }}-{{ hbase_phoenix_version }}-bin"
+hbase_path_phoenix_install: "{{ hbase_path_base }}/phoenix"
 
 
 hadoop_path_systemd_master: "/etc/systemd/system/{{ hbase_systemd_master_name }}.service"

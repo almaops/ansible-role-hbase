@@ -9,11 +9,23 @@
   ansible.builtin.set_fact:
     hbase_phoenix_download_checksum: "{{ hbase_phoenix_download_checksum_raw.content.split(': ')[1] | regex_replace('\n','') | regex_replace(' ','') | lower }}"
 
-- name: "{{ hbase_task_prefix }} Download tarball"
+- name: "{{ hbase_task_prefix }} Download Phoenix tarball"
   ansible.builtin.get_url:
     url: "{{ hbase_phoenix_url_file }}"
-    dest: "{{ hbase_path_phoenix_tarbal }}"
+    dest: "{{ hbase_path_phoenix_tarball }}"
     checksum: "{{ hbase_phoenix_checksum_algo }}:{{ hbase_phoenix_download_checksum }}"
 
+- name: "{{ hbase_task_prefix }} Unpack Phoenix tarball"
+  ansible.builtin.unarchive:
+    src: "{{ hbase_path_phoenix_tarball }}"
+    dest: "{{ hbase_path_base }}"
+    remote_src: true
+    creates: "{{ hbase_path_phoenix_unpacked }}"
 
+- name: "{{ hbase_task_prefix }} Copy Phoenix binaries"
+  ansible.builtin.copy:
+    src: "{{ hbase_path_phoenix_unpacked }}"
+    dest: "{{ hbase_path_phoenix_install }}"
+    remote_src: true
+    force: false
 ...
