@@ -6,8 +6,8 @@ hbase_user: "hadoop"
 hbase_group: "hadoop"
 hbase_user_shell: "/usr/sbin/nologin"
 hbase_version: "2.4.9"
-habse_phoenix_version: "5.1.2"
-habse_phoenix_version_hbase: "2.4.0"
+hbase_phoenix_version: "5.1.2"
+hbase_phoenix_version_hbase: "2.4.0"
 hbase_enable_phoenix: true
 # variant can be either "bin" or "client-bin"
 hbase_variant: "bin"
@@ -16,7 +16,7 @@ hbase_download_url_file: "{{ hbase_download_url_base }}/{{ hbase_version }}/hbas
 hbase_download_url_checksum: "{{ hbase_download_url_file }}.sha512"
 hbase_download_checksum_algo: "sha512"
 hbase_phoenix_url_base: "https://archive.apache.org/dist/phoenix"
-hbase_phoenix_url_file: "{{ hbase_phoenix_url_base }}/phoenix-{{ habse_phoenix_version }}/phoenix-hbase-{{  }}-{{ habse_phoenix_version }}-bin.tar.gz"
+hbase_phoenix_url_file: "{{ hbase_phoenix_url_base }}/phoenix-{{ hbase_phoenix_version }}/phoenix-hbase-{{ hbase_phoenix_version_hbase }}-{{ hbase_phoenix_version }}-bin.tar.gz"
 hbase_phoenix_url_checksum: "{{ hbase_phoenix_url_file }}.sha512"
 hbase_phoenix_checksum_algo: "sha512"
 
@@ -80,7 +80,7 @@ hbase_path_hadoop_install: "/opt/hadoop"
 hbase_path_hadoop_config: "{{ hbase_path_hadoop_install }}/etc/hadoop"
 hbase_path_data: "/srv/hbase"
 
-hbase_path_phoenix_tarbal: "{{ hbase_path_base }}/phoenix-{{ habse_phoenix_version }}-bin.tar.gz"
+hbase_path_phoenix_tarbal: "{{ hbase_path_base }}/phoenix-{{ hbase_phoenix_version }}-bin.tar.gz"
 
 
 hadoop_path_systemd_master: "/etc/systemd/system/{{ hbase_systemd_master_name }}.service"
