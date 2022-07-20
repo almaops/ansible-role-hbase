@@ -9,6 +9,7 @@ hbase_version: "2.4.9"
 hbase_phoenix_version: "5.1.2"
 hbase_phoenix_version_hbase: "2.4.0"
 hbase_enable_phoenix: true
+hbase_enable_backup: true
 # variant can be either "bin" or "client-bin"
 hbase_variant: "bin"
 hbase_download_url_base: "https://archive.apache.org/dist/hbase"

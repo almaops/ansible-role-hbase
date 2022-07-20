@@ -120,4 +120,30 @@
     <value>60000</value>
 </property>
 {% endif %}
+{% if hbase_enable_backup %}
+<property>
+    <name>hbase.backup.enable</name>
+    <value>true</value>
+</property>
+<property>
+    <name>hbase.master.logcleaner.plugins</name>
+    <value>org.apache.hadoop.hbase.backup.master.BackupLogCleaner,...</value>
+</property>
+<property>
+    <name>hbase.procedure.master.classes</name>
+    <value>org.apache.hadoop.hbase.backup.master.LogRollMasterProcedureManager,...</value>
+</property>
+<property>
+    <name>hbase.procedure.regionserver.classes</name>
+    <value>org.apache.hadoop.hbase.backup.regionserver.LogRollRegionServerProcedureManager,...</value>
+</property>
+<property>
+    <name>hbase.coprocessor.region.classes</name>
+    <value>org.apache.hadoop.hbase.backup.BackupObserver,...</value>
+</property>
+<property>
+    <name>hbase.master.hfilecleaner.plugins</name>
+    <value>org.apache.hadoop.hbase.backup.BackupHFileCleaner,...</value>
+</property>
+{% endif %}
 </configuration>

@@ -80,6 +80,7 @@
     - yarn-site.xml
     - mapred-site.xml
     - hadoop-metrics2.properties
+    - container-executor.cfg
 
 - name: "{{ hbase_task_prefix }} Template jmxremote.access"
   template:
